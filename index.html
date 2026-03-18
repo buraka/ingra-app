@@ -4,315 +4,423 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ingra — AI-Powered Ingredient Scanner</title>
-<meta name="description" content="Scan any ingredient label with AI. Get instant health scores, personalized allergy alerts, and product comparisons.">
+<meta name="description" content="Scan any ingredient label with AI. Get instant health scores, personalized allergy alerts, and product comparisons. Free on iOS.">
 <meta name="apple-itunes-app" content="app-id=6760588507">
 <meta property="og:title" content="Ingra — Know What You Eat">
-<meta property="og:description" content="AI-powered ingredient scanner. Instant health scores, allergy alerts, product comparison.">
-<meta property="og:image" content="https://buraka.github.io/ingra-app/icon.png">
+<meta property="og:description" content="AI-powered ingredient scanner. Instant health scores, allergy alerts, product comparison. Free on iOS.">
+<meta property="og:image" content="https://buraka.github.io/ingra-app/ingra-00-branding.png">
 <meta property="og:url" content="https://buraka.github.io/ingra-app/">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="icon.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--green:#4ADE80;--green-dim:#16A34A;--bg:#050a05;--card:#0a120a;--border:#122212;--text:#c0c0c0;--white:#fff}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:var(--green);text-decoration:none}
+:root{--g:#4ADE80;--gd:#16A34A;--bg:#040804;--card:#0a110a;--border:#152215;--text:#b0b0b0;--white:#f5f5f5;--cyan:#22D3EE}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--g);text-decoration:none}
+section{position:relative}
 
-/* Lang switch */
-.lang-switch{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:4px;background:#0a120aCC;backdrop-filter:blur(10px);padding:4px;border-radius:10px;border:1px solid var(--border)}
-.lang-btn{background:none;border:none;color:#666;font-size:13px;font-weight:600;padding:5px 12px;border-radius:7px;cursor:pointer;transition:.2s}
-.lang-btn.active{background:var(--green-dim);color:var(--white)}
+/* ── Lang toggle ── */
+.lang-sw{position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:3px;background:#0a110acc;backdrop-filter:blur(12px);padding:3px;border-radius:9px;border:1px solid var(--border)}
+.lb{background:none;border:none;color:#555;font-size:12px;font-weight:700;padding:5px 12px;border-radius:7px;cursor:pointer;transition:.2s;letter-spacing:.5px}
+.lb.on{background:var(--gd);color:var(--white)}
 
-/* Hero */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 40px;position:relative}
-.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(74,222,128,.08) 0%,transparent 70%);pointer-events:none}
+/* ── Nav ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;padding:14px 24px;display:flex;align-items:center;gap:10px;background:transparent;transition:background .3s}
+.nav.scrolled{background:#040804ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{width:32px;height:32px;border-radius:8px}
+.nav-name{font-weight:700;font-size:16px;color:var(--white);letter-spacing:-.3px}
 
-.hero-icon{width:100px;height:100px;border-radius:24px;animation:float 3s ease-in-out infinite;box-shadow:0 20px 60px rgba(74,222,128,.15)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12}
+.orb-1{width:600px;height:600px;background:var(--g);top:-200px;left:50%;transform:translateX(-50%);animation:pulse 6s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:var(--cyan);bottom:-100px;right:-100px;animation:pulse 8s ease-in-out 2s infinite}
+@keyframes pulse{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.18;transform:scale(1.1)}}
 
-.hero h1{font-size:clamp(36px,7vw,64px);font-weight:800;color:var(--white);margin:28px 0 12px;letter-spacing:-1.5px;line-height:1.1}
-.hero h1 .g{background:linear-gradient(135deg,#4ADE80,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero .sub{font-size:clamp(16px,3vw,20px);color:#888;max-width:500px;margin:0 auto 36px;line-height:1.5}
+.hero-icon{width:88px;height:88px;border-radius:22px;animation:float 4s ease-in-out infinite;box-shadow:0 20px 60px rgba(74,222,128,.2)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* Buttons */
-.btn-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
-.btn-appstore{display:inline-block;transition:transform .2s}
-.btn-appstore:hover{transform:scale(1.05)}
-.btn-appstore img{height:52px}
-.btn-android{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:500;padding:12px 20px;border-radius:12px;cursor:pointer;transition:.2s}
-.btn-android:hover{border-color:var(--green);color:var(--green)}
-.btn-android svg{width:18px;height:18px;fill:currentColor}
+.hero h1{font-size:clamp(40px,8vw,72px);font-weight:800;color:var(--white);margin:24px 0 16px;letter-spacing:-2px;line-height:1.05}
+.gr{background:linear-gradient(135deg,#4ADE80 0%,#22D3EE 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{font-size:clamp(16px,2.5vw,19px);color:#777;max-width:520px;margin:0 auto 32px;line-height:1.6}
 
-/* Phone mockup */
-.phones{display:flex;gap:20px;justify-content:center;margin-top:60px;perspective:1000px}
-.phone-img{width:clamp(140px,25vw,200px);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:riseUp 1s ease-out both;opacity:0}
-.phone-img:nth-child(1){animation-delay:.2s}
-.phone-img:nth-child(2){animation-delay:.4s;transform:translateY(-20px)}
-.phone-img:nth-child(3){animation-delay:.6s}
-@keyframes riseUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
-.phone-img:nth-child(2){animation-name:riseUpCenter}
-@keyframes riseUpCenter{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(-20px)}}
+/* ── Buttons ── */
+.btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+.btn-as{display:inline-block;transition:transform .2s}
+.btn-as:hover{transform:scale(1.05)}
+.btn-as img{height:48px}
+.btn-an{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);color:#888;font-size:13px;font-weight:600;padding:11px 18px;border-radius:12px;cursor:pointer;transition:.2s}
+.btn-an:hover{border-color:var(--g);color:var(--g)}
+.btn-an svg{width:16px;height:16px;fill:currentColor}
 
-/* Features */
-.features{padding:80px 24px;max-width:900px;margin:0 auto}
-.features h2{text-align:center;font-size:32px;color:var(--white);margin-bottom:48px;font-weight:700}
-.features h2 .g{background:linear-gradient(135deg,#4ADE80,#22D3EE);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.feat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:transform .3s,border-color .3s}
-.feat:hover{transform:translateY(-4px);border-color:var(--green-dim)}
-.feat-icon{width:44px;height:44px;background:rgba(74,222,128,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:22px}
-.feat h3{color:var(--white);font-size:16px;font-weight:600;margin-bottom:6px}
-.feat p{font-size:14px;color:#888;line-height:1.5}
+/* ── Screenshot carousel ── */
+.carousel-wrap{width:100%;margin-top:56px;position:relative}
+.carousel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 calc(50vw - 160px) 20px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.carousel img{width:280px;flex-shrink:0;border-radius:14px;scroll-snap-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);transition:transform .3s;opacity:0;animation:slideUp .6s ease-out forwards}
+.carousel img:nth-child(1){animation-delay:.1s}
+.carousel img:nth-child(2){animation-delay:.2s}
+.carousel img:nth-child(3){animation-delay:.3s}
+.carousel img:nth-child(4){animation-delay:.4s}
+.carousel img:nth-child(5){animation-delay:.5s}
+.carousel img:nth-child(6){animation-delay:.6s}
+.carousel img:nth-child(7){animation-delay:.7s}
+.carousel img:nth-child(8){animation-delay:.8s}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.carousel img:hover{transform:scale(1.03)}
 
-/* Android waitlist */
+/* ── Stats bar ── */
+.stats{display:flex;justify-content:center;gap:clamp(24px,6vw,64px);padding:48px 24px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat{text-align:center}
+.stat-num{font-size:clamp(28px,5vw,40px);font-weight:800;color:var(--white);letter-spacing:-1px}
+.stat-num .gr{font-size:inherit}
+.stat-label{font-size:13px;color:#666;margin-top:4px}
+
+/* ── How it works ── */
+.how{padding:80px 24px;max-width:900px;margin:0 auto}
+.section-title{text-align:center;font-size:clamp(28px,5vw,40px);font-weight:800;color:var(--white);margin-bottom:16px;letter-spacing:-1px}
+.section-sub{text-align:center;color:#666;font-size:16px;margin-bottom:48px;max-width:500px;margin-left:auto;margin-right:auto}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.step{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;position:relative;transition:transform .3s,border-color .3s}
+.step:hover{transform:translateY(-4px);border-color:var(--gd)}
+.step-num{position:absolute;top:16px;right:18px;font-size:48px;font-weight:900;color:#0f1a0f;line-height:1}
+.step-icon{font-size:28px;margin-bottom:14px}
+.step h3{color:var(--white);font-size:17px;font-weight:700;margin-bottom:6px}
+.step p{font-size:14px;color:#777;line-height:1.5}
+
+/* ── Features grid ── */
+.features{padding:40px 24px 80px;max-width:1000px;margin:0 auto}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.feat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;gap:16px;align-items:flex-start;transition:transform .3s,border-color .3s}
+.feat:hover{transform:translateY(-3px);border-color:var(--gd)}
+.feat-ic{width:42px;height:42px;min-width:42px;background:rgba(74,222,128,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.feat h3{color:var(--white);font-size:15px;font-weight:600;margin-bottom:4px}
+.feat p{font-size:13px;color:#777;line-height:1.5}
+
+/* ── Showcase (side-by-side text + screenshot) ── */
+.showcase{padding:60px 24px;max-width:1000px;margin:0 auto}
+.show-row{display:flex;align-items:center;gap:40px;margin-bottom:60px}
+.show-row.reverse{flex-direction:row-reverse}
+.show-text{flex:1}
+.show-text h2{font-size:28px;font-weight:800;color:var(--white);margin-bottom:12px;letter-spacing:-.5px}
+.show-text p{font-size:15px;color:#888;line-height:1.6;margin-bottom:12px}
+.show-text .tag{display:inline-block;background:rgba(74,222,128,.1);color:var(--g);font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;margin-bottom:12px}
+.show-img{flex:0 0 260px}
+.show-img img{width:100%;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+
+/* ── Waitlist ── */
 .waitlist{padding:60px 24px 80px;text-align:center}
-.waitlist-box{max-width:500px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 28px}
-.waitlist-box h2{color:var(--white);font-size:24px;margin-bottom:8px}
-.waitlist-box p{color:#888;font-size:15px;margin-bottom:20px}
-.waitlist-form{display:flex;gap:8px}
-.waitlist-form input{flex:1;background:#111;border:1px solid var(--border);color:var(--white);padding:12px 16px;border-radius:10px;font-size:15px;outline:none;transition:border .2s}
-.waitlist-form input:focus{border-color:var(--green)}
-.waitlist-form input::placeholder{color:#555}
-.waitlist-form button{background:var(--green-dim);color:var(--white);border:none;padding:12px 24px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s;white-space:nowrap}
-.waitlist-form button:hover{background:var(--green)}
-.waitlist-success{display:none;color:var(--green);font-size:15px;margin-top:12px}
+.wl-box{max-width:480px;margin:0 auto;background:linear-gradient(145deg,#0d170d,#0a110a);border:1px solid var(--border);border-radius:24px;padding:40px 28px;position:relative;overflow:hidden}
+.wl-box::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(74,222,128,.3),transparent)}
+.wl-box h2{color:var(--white);font-size:24px;font-weight:700;margin-bottom:8px}
+.wl-box>p{color:#666;font-size:14px;margin-bottom:20px}
+.wl-form{display:flex;gap:8px}
+.wl-form input{flex:1;background:#0a0f0a;border:1px solid var(--border);color:var(--white);padding:12px 16px;border-radius:10px;font-size:14px;outline:none;transition:border .2s}
+.wl-form input:focus{border-color:var(--g)}
+.wl-form input::placeholder{color:#444}
+.wl-form button{background:var(--gd);color:var(--white);border:none;padding:12px 22px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap}
+.wl-form button:hover{background:var(--g);color:#000}
+.wl-ok{display:none;color:var(--g);font-size:14px;margin-top:14px}
 
-/* Footer */
-.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:#444;font-size:13px}
+/* ── CTA banner ── */
+.cta{padding:60px 24px;text-align:center}
+.cta h2{font-size:clamp(28px,5vw,40px);font-weight:800;color:var(--white);margin-bottom:12px;letter-spacing:-1px}
+.cta p{color:#666;font-size:16px;margin-bottom:28px}
+
+/* ── Footer ── */
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);color:#333;font-size:12px}
 .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap}
-.footer-links a{color:#666;font-size:13px;transition:color .2s}
-.footer-links a:hover{color:var(--green)}
+.footer-links a{color:#555;font-size:12px;transition:color .2s}
+.footer-links a:hover{color:var(--g)}
 
-/* Scroll animations */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
-.fade-in.visible{opacity:1;transform:translateY(0)}
+/* ── Animations ── */
+.fi{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.fi.v{opacity:1;transform:translateY(0)}
 
-[data-lang]{display:none}
-[data-lang].show{display:block}
-.inline-lang{display:none}
-.inline-lang.show{display:inline}
-.flex-lang{display:none}
-.flex-lang.show{display:flex}
+/* ── Lang blocks ── */
+[data-l]{display:none}[data-l].s{display:block}
+.il{display:none}.il.s{display:inline}
 
-@media(max-width:600px){
-  .phones{gap:10px}
-  .waitlist-form{flex-direction:column}
-  .waitlist-form button{width:100%}
+/* ── Responsive ── */
+@media(max-width:768px){
+  .show-row,.show-row.reverse{flex-direction:column;text-align:center}
+  .show-img{flex:0 0 auto;width:220px;margin:0 auto}
+  .carousel img{width:220px}
+  .wl-form{flex-direction:column}
+  .wl-form button{width:100%}
 }
 </style>
 </head>
 <body>
 
-<div class="lang-switch">
-<button class="lang-btn active" onclick="setLang('en')">EN</button>
-<button class="lang-btn" onclick="setLang('tr')">TR</button>
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <img src="icon.png" alt="Ingra" class="nav-logo" width="32" height="32">
+  <span class="nav-name">Ingra</span>
+</nav>
+
+<div class="lang-sw">
+  <button class="lb on" onclick="L('en')">EN</button>
+  <button class="lb" onclick="L('tr')">TR</button>
 </div>
 
-<!-- HERO -->
+<!-- ════════ HERO ════════ -->
 <section class="hero">
-  <img src="icon.png" alt="Ingra" class="hero-icon" width="100" height="100">
+  <div class="hero-bg"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+  <img src="icon.png" alt="Ingra" class="hero-icon" width="88" height="88">
 
-  <div data-lang="en" class="show">
-    <h1>Know What<br><span class="g">You Eat</span></h1>
-    <p class="sub">Scan any ingredient label with AI. Get instant health scores, personalized allergy alerts, and side-by-side product comparisons.</p>
+  <div data-l="en" class="s">
+    <h1>Know What<br><span class="gr">You Eat</span></h1>
+    <p class="sub">Scan any ingredient label with AI. Instant health scores, personalized alerts, and smarter food choices — all from your camera.</p>
   </div>
-  <div data-lang="tr">
-    <h1>Ne Yediginizi<br><span class="g">Bilin</span></h1>
-    <p class="sub">Herhangi bir icerik etiketini AI ile tarayin. Aninda saglik skoru, kisisel alerji uyarilari ve yan yana urun karsilastirmasi.</p>
+  <div data-l="tr">
+    <h1>Ne Yediginizi<br><span class="gr">Bilin</span></h1>
+    <p class="sub">Herhangi bir icerik etiketini AI ile tarayin. Aninda saglik skoru, kisisel uyarilar ve daha akilli gida secimleri — kameranizdan.</p>
   </div>
 
-  <div class="btn-row">
-    <a href="https://apps.apple.com/app/ingra-ingredient-scanner/id6760588507" class="btn-appstore" target="_blank">
+  <div class="btns">
+    <a href="https://apps.apple.com/app/ingra-ingredient-scanner/id6760588507" class="btn-as" target="_blank">
       <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
     </a>
-    <a href="#waitlist" class="btn-android">
-      <svg viewBox="0 0 24 24"><path d="M17.523 2.273l1.74-1.418a.29.29 0 00-.186-.513.287.287 0 00-.18.063l-1.872 1.525A8.862 8.862 0 0012 .858a8.862 8.862 0 00-5.025 1.072L5.103.405a.29.29 0 00-.407.05.29.29 0 00.041.4l1.74 1.418C3.905 3.88 2.247 6.893 2.247 10.327h19.506c0-3.434-1.658-6.447-4.23-8.054zM8.49 7.393a.89.89 0 110-1.78.89.89 0 010 1.78zm7.02 0a.89.89 0 110-1.78.89.89 0 010 1.78zM2.247 11.327v8.25c0 .966.784 1.75 1.75 1.75h1.167v2.923a1.75 1.75 0 103.5 0V21.327h2.672v2.923a1.75 1.75 0 103.5 0V21.327h1.167c.966 0 1.75-.784 1.75-1.75v-8.25H2.247zm-2.08.583a1.75 1.75 0 113.5 0v5.25a1.75 1.75 0 11-3.5 0v-5.25zm20.166 0a1.75 1.75 0 113.5 0v5.25a1.75 1.75 0 11-3.5 0v-5.25z"/></svg>
-      <span class="inline-lang show" data-lang="en">Android — Join Waitlist</span>
-      <span class="inline-lang" data-lang="tr">Android — Bekleme Listesi</span>
+    <a href="#waitlist" class="btn-an">
+      <svg viewBox="0 0 24 24"><path d="M17.523 2.273l1.74-1.418a.29.29 0 00-.186-.513.287.287 0 00-.18.063l-1.872 1.525A8.862 8.862 0 0012 .858a8.862 8.862 0 00-5.025 1.072L5.103.405a.29.29 0 00-.407.05.29.29 0 00.041.4l1.74 1.418C3.905 3.88 2.247 6.893 2.247 10.327h19.506c0-3.434-1.658-6.447-4.23-8.054zM8.49 7.393a.89.89 0 110-1.78.89.89 0 010 1.78zm7.02 0a.89.89 0 110-1.78.89.89 0 010 1.78zM2.247 11.327v8.25c0 .966.784 1.75 1.75 1.75h1.167v2.923a1.75 1.75 0 103.5 0V21.327h2.672v2.923a1.75 1.75 0 103.5 0V21.327h1.167c.966 0 1.75-.784 1.75-1.75v-8.25H2.247z"/></svg>
+      <span class="il s" data-l="en">Android — Join Waitlist</span>
+      <span class="il" data-l="tr">Android — Bekleme Listesi</span>
     </a>
   </div>
 
-  <div class="phones">
-    <img src="ss-1.png" alt="Ingra Home" class="phone-img">
-    <img src="ss-2.png" alt="Ingra Analysis" class="phone-img">
-    <img src="ss-3.png" alt="Ingra Compare" class="phone-img">
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <img src="ingra-00-branding.png" alt="Ingra Branding" loading="lazy">
+      <img src="ingra-01-home.png" alt="Scan" loading="lazy">
+      <img src="ingra-02-analysis.png" alt="Analysis" loading="lazy">
+      <img src="ingra-03-compare.png" alt="Compare" loading="lazy">
+      <img src="ingra-04-history.png" alt="History" loading="lazy">
+      <img src="ingra-05-profile.png" alt="Profile" loading="lazy">
+      <img src="ingra-06-streak.png" alt="Streak" loading="lazy">
+      <img src="ingra-07-calendar.png" alt="Calendar" loading="lazy">
+    </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="features fade-in">
-  <div data-lang="en" class="show">
-    <h2>Everything you need to<br><span class="g">eat smarter</span></h2>
+<!-- ════════ STATS ════════ -->
+<section class="stats fi">
+  <div class="stat">
+    <div class="stat-num"><span class="gr">100+</span></div>
+    <div data-l="en" class="s"><div class="stat-label">Ingredients Detected</div></div>
+    <div data-l="tr"><div class="stat-label">Tespit Edilen Icerik</div></div>
   </div>
-  <div data-lang="tr">
-    <h2>Daha akilli beslenme icin<br><span class="g">ihtiyacin olan her sey</span></h2>
+  <div class="stat">
+    <div class="stat-num"><span class="gr">13+</span></div>
+    <div data-l="en" class="s"><div class="stat-label">Languages Supported</div></div>
+    <div data-l="tr"><div class="stat-label">Desteklenen Dil</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="gr">0-100</span></div>
+    <div data-l="en" class="s"><div class="stat-label">Health Score Range</div></div>
+    <div data-l="tr"><div class="stat-label">Saglik Skoru Araligi</div></div>
+  </div>
+  <div class="stat">
+    <div class="stat-num"><span class="gr">Free</span></div>
+    <div data-l="en" class="s"><div class="stat-label">To Start</div></div>
+    <div data-l="tr"><div class="stat-label">Baslangic</div></div>
+  </div>
+</section>
+
+<!-- ════════ HOW IT WORKS ════════ -->
+<section class="how">
+  <div data-l="en" class="s">
+    <h2 class="section-title">How It <span class="gr">Works</span></h2>
+    <p class="section-sub">Three simple steps to know exactly what's in your food.</p>
+  </div>
+  <div data-l="tr">
+    <h2 class="section-title">Nasil <span class="gr">Calisir</span></h2>
+    <p class="section-sub">Yediginizde ne oldugunu ogrenmek icin uc basit adim.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step fi">
+      <div class="step-num">1</div>
+      <div class="step-icon">📸</div>
+      <div data-l="en" class="s">
+        <h3>Scan the Label</h3>
+        <p>Point your camera at any ingredient label — food or supplement. Ingra reads the text automatically.</p>
+      </div>
+      <div data-l="tr">
+        <h3>Etiketi Tara</h3>
+        <p>Kameranizi herhangi bir icerik etiketine tutun — gida veya takviye. Ingra metni otomatik okur.</p>
+      </div>
+    </div>
+    <div class="step fi">
+      <div class="step-num">2</div>
+      <div class="step-icon">🤖</div>
+      <div data-l="en" class="s">
+        <h3>AI Analyzes</h3>
+        <p>Gemini AI identifies every additive, preservative, and nutrient. Rates the product from 0 to 100.</p>
+      </div>
+      <div data-l="tr">
+        <h3>AI Analiz Eder</h3>
+        <p>Gemini AI tum katki maddelerini, koruyuculari ve besinleri tespit eder. Urunu 0-100 arasi puanlar.</p>
+      </div>
+    </div>
+    <div class="step fi">
+      <div class="step-num">3</div>
+      <div class="step-icon">✅</div>
+      <div data-l="en" class="s">
+        <h3>Make Better Choices</h3>
+        <p>See what's safe, what's risky, and get personalized warnings based on your health profile.</p>
+      </div>
+      <div data-l="tr">
+        <h3>Daha Iyi Secimler Yapin</h3>
+        <p>Neyin guvenli, neyin riskli oldugunu gorun ve saglik profilinize gore kisisel uyarilar alin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ SHOWCASE ════════ -->
+<section class="showcase">
+  <div class="show-row fi">
+    <div class="show-text">
+      <div data-l="en" class="s">
+        <span class="tag">AI-Powered</span>
+        <h2>Detailed Ingredient<br>Breakdown</h2>
+        <p>Tap any ingredient to see its safety status, what it does, E-number identification, and risk level based on current research.</p>
+        <p>For supplements, Ingra goes deeper — dosage vs. daily intake, bioavailability ratings, and nutrient interaction warnings.</p>
+      </div>
+      <div data-l="tr">
+        <span class="tag">AI Destekli</span>
+        <h2>Detayli Icerik<br>Analizi</h2>
+        <p>Herhangi bir icerege tiklayarak guvenlik durumunu, ne ise yaradigini, E-numarasini ve guncel arastirmalara dayali risk seviyesini gorun.</p>
+        <p>Takviyeler icin Ingra daha derine iner — doz vs. gunluk oneri, biyoyararlanilirlik puanlari ve besin etkilesim uyarilari.</p>
+      </div>
+    </div>
+    <div class="show-img"><img src="ingra-02-analysis.png" alt="Analysis" loading="lazy"></div>
+  </div>
+
+  <div class="show-row reverse fi">
+    <div class="show-text">
+      <div data-l="en" class="s">
+        <span class="tag">Compare</span>
+        <h2>Find the Healthier<br>Pick</h2>
+        <p>Can't decide between two products? Scan both and compare. Ingra shows the score difference, ingredient-by-ingredient comparison, and a clear AI verdict.</p>
+      </div>
+      <div data-l="tr">
+        <span class="tag">Karsilastir</span>
+        <h2>Daha Sagliklisini<br>Bulun</h2>
+        <p>Iki urun arasinda karar veremiyor musunuz? Ikisini de tarayin. Ingra puan farkini, icerik karsilastirmasini ve net bir AI yorumunu gosterir.</p>
+      </div>
+    </div>
+    <div class="show-img"><img src="ingra-03-compare.png" alt="Compare" loading="lazy"></div>
+  </div>
+
+  <div class="show-row fi">
+    <div class="show-text">
+      <div data-l="en" class="s">
+        <span class="tag">Personalized</span>
+        <h2>Alerts Based on<br>Your Profile</h2>
+        <p>Set up your allergies, health conditions, dietary preferences, and medications. Every scan is filtered through YOUR profile — if something is risky for you, Ingra flags it instantly.</p>
+      </div>
+      <div data-l="tr">
+        <span class="tag">Kisisel</span>
+        <h2>Profilinize Gore<br>Uyarilar</h2>
+        <p>Alerjilerinizi, saglik durumunuzu, diyet tercihlerinizi ve ilaclarinizi ayarlayin. Her tarama SIZIN profiliniz uzerinden filtrelenir — sizin icin riskli bir sey varsa Ingra aninda isaret eder.</p>
+      </div>
+    </div>
+    <div class="show-img"><img src="ingra-05-profile.png" alt="Profile" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ════════ FEATURES ════════ -->
+<section class="features">
+  <div data-l="en" class="s">
+    <h2 class="section-title">Packed with <span class="gr">Features</span></h2>
+    <p class="section-sub">Everything you need to make informed food choices.</p>
+  </div>
+  <div data-l="tr">
+    <h2 class="section-title">Ozelliklerle <span class="gr">Dolu</span></h2>
+    <p class="section-sub">Bilincli gida secimleri icin ihtiyaciniz olan her sey.</p>
   </div>
 
   <div class="feat-grid">
-    <div class="feat fade-in">
-      <div class="feat-icon">📸</div>
-      <div data-lang="en" class="show">
-        <h3>Instant Scan</h3>
-        <p>Point your camera at any ingredient label. AI reads and analyzes everything in seconds.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Aninda Tarama</h3>
-        <p>Kameranizi herhangi bir icerik etiketine tutun. AI saniyeler icinde her seyi okur ve analiz eder.</p>
-      </div>
-    </div>
-
-    <div class="feat fade-in">
-      <div class="feat-icon">🛡️</div>
-      <div data-lang="en" class="show">
-        <h3>Personalized Alerts</h3>
-        <p>Set your allergies, conditions, and dietary preferences. Get warned about risky ingredients.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Kisisel Uyarilar</h3>
-        <p>Alerjilerinizi, saglik durumunuzu ve diyet tercihlerinizi belirleyin. Riskli icerikler icin uyari alin.</p>
-      </div>
-    </div>
-
-    <div class="feat fade-in">
-      <div class="feat-icon">⚖️</div>
-      <div data-lang="en" class="show">
-        <h3>Compare Products</h3>
-        <p>Scan two products and see a side-by-side comparison with AI verdict on which is healthier.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Urunleri Karsilastir</h3>
-        <p>Iki urunu tarayin ve hangisinin daha sagliklI olduguna dair AI yorumunu gorun.</p>
-      </div>
-    </div>
-
-    <div class="feat fade-in">
-      <div class="feat-icon">📊</div>
-      <div data-lang="en" class="show">
-        <h3>Health Score</h3>
-        <p>Every product gets a 0-100 score based on ingredient safety, additives, and nutritional value.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Saglik Skoru</h3>
-        <p>Her urun, icerik guvenligi, katki maddeleri ve besin degerine gore 0-100 arasi puanlanir.</p>
-      </div>
-    </div>
-
-    <div class="feat fade-in">
-      <div class="feat-icon">🔬</div>
-      <div data-lang="en" class="show">
-        <h3>Ingredient Details</h3>
-        <p>Tap any ingredient to see what it is, why it's there, E-numbers, and risk level.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Icerik Detaylari</h3>
-        <p>Herhangi bir icerege tiklayarak ne oldugunu, neden orada oldugunu, E-numarasini ve risk seviyesini gorun.</p>
-      </div>
-    </div>
-
-    <div class="feat fade-in">
-      <div class="feat-icon">🔥</div>
-      <div data-lang="en" class="show">
-        <h3>Streaks & Calendar</h3>
-        <p>Build daily scan streaks, level up, and visualize your healthy habits on a scan calendar.</p>
-      </div>
-      <div data-lang="tr">
-        <h3>Seriler & Takvim</h3>
-        <p>Gunluk tarama serileri olusturun, seviye atlayin ve saglikli aliskanliklarinizi takvimde gorun.</p>
-      </div>
-    </div>
+    <div class="feat fi"><div class="feat-ic">📷</div><div><div data-l="en" class="s"><h3>Multi-Image Scan</h3><p>Scan front label + nutrition table together for a complete analysis.</p></div><div data-l="tr"><h3>Coklu Gorsel Tarama</h3><p>On etiket + besin tablosunu birlikte tarayin.</p></div></div></div>
+    <div class="feat fi"><div class="feat-ic">🌍</div><div><div data-l="en" class="s"><h3>13+ Languages</h3><p>Scan labels in any country. AI understands ingredients in multiple languages.</p></div><div data-l="tr"><h3>13+ Dil</h3><p>Herhangi bir ulkedeki etiketleri tarayin.</p></div></div></div>
+    <div class="feat fi"><div class="feat-ic">📋</div><div><div data-l="en" class="s"><h3>Scan History</h3><p>Full history with search, filters, and favorites for quick access.</p></div><div data-l="tr"><h3>Tarama Gecmisi</h3><p>Arama, filtre ve favorilerle tam gecmis.</p></div></div></div>
+    <div class="feat fi"><div class="feat-ic">👁️</div><div><div data-l="en" class="s"><h3>Ingredient Watchlist</h3><p>Watch specific ingredients. Get alerted when they show up in scans.</p></div><div data-l="tr"><h3>Icerik Izleme</h3><p>Belirli icerikleri izleyin. Taramalarda cikinca uyari alin.</p></div></div></div>
+    <div class="feat fi"><div class="feat-ic">🔥</div><div><div data-l="en" class="s"><h3>Daily Streaks</h3><p>Build scan streaks, level up, and stay motivated with gamification.</p></div><div data-l="tr"><h3>Gunluk Seriler</h3><p>Tarama serileri olusturun, seviye atlayin.</p></div></div></div>
+    <div class="feat fi"><div class="feat-ic">📤</div><div><div data-l="en" class="s"><h3>Share Cards</h3><p>Generate beautiful share cards of your scan results for social media.</p></div><div data-l="tr"><h3>Paylasim Kartlari</h3><p>Tarama sonuclarinizi sosyal medya icin paylasim kartlarina donusturun.</p></div></div></div>
   </div>
 </section>
 
-<!-- ANDROID WAITLIST -->
-<section class="waitlist fade-in" id="waitlist">
-  <div class="waitlist-box">
-    <div data-lang="en" class="show">
+<!-- ════════ ANDROID WAITLIST ════════ -->
+<section class="waitlist" id="waitlist">
+  <div class="wl-box fi">
+    <div data-l="en" class="s">
       <h2>Android Coming Soon</h2>
-      <p>Join the waitlist and be the first to know when Ingra launches on Android.</p>
+      <p>Join the waitlist to be the first to know when Ingra is available on Android.</p>
     </div>
-    <div data-lang="tr">
+    <div data-l="tr">
       <h2>Android Yakinda</h2>
-      <p>Bekleme listesine katilIn ve Ingra Android'e geldiginde ilk siz haberdar olun.</p>
+      <p>Ingra Android'e geldiginde ilk haberdar olan siz olun.</p>
     </div>
-    <form class="waitlist-form" action="https://formspree.io/f/xdawypjw" method="POST" onsubmit="return handleSubmit(event)">
+    <form class="wl-form" action="https://formspree.io/f/xdawypjw" method="POST" onsubmit="return W(event)">
       <input type="email" name="email" placeholder="you@example.com" required>
       <input type="hidden" name="_subject" value="Ingra Android Waitlist">
       <button type="submit">
-        <span class="inline-lang show" data-lang="en">Notify Me</span>
-        <span class="inline-lang" data-lang="tr">Haber Ver</span>
+        <span class="il s" data-l="en">Notify Me</span>
+        <span class="il" data-l="tr">Haber Ver</span>
       </button>
     </form>
-    <div class="waitlist-success" id="waitlist-success">
-      <span class="inline-lang show" data-lang="en">You're on the list! We'll notify you when Ingra launches on Android.</span>
-      <span class="inline-lang" data-lang="tr">Listeye eklendi! Ingra Android'e geldiginde sizi bilgilendiririz.</span>
+    <div class="wl-ok" id="wl-ok">
+      <span class="il s" data-l="en">You're on the list! We'll let you know when Ingra launches on Android.</span>
+      <span class="il" data-l="tr">Listedesiniz! Android'e geldiginde haber verecegiz.</span>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ════════ CTA ════════ -->
+<section class="cta fi">
+  <div data-l="en" class="s">
+    <h2>Start Making <span class="gr">Informed Choices</span></h2>
+    <p>Download Ingra for free and know exactly what goes into your body.</p>
+  </div>
+  <div data-l="tr">
+    <h2>Bilincli Secimler <span class="gr">Yapmaya Baslayin</span></h2>
+    <p>Ingra'yi ucretsiz indirin ve vucudunuza giren her seyi bilin.</p>
+  </div>
+  <div class="btns" style="margin-top:8px">
+    <a href="https://apps.apple.com/app/ingra-ingredient-scanner/id6760588507" class="btn-as" target="_blank">
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+    </a>
+  </div>
+</section>
+
+<!-- ════════ FOOTER ════════ -->
 <footer class="footer">
   <div class="footer-links">
-    <a href="privacy-policy.html">
-      <span class="inline-lang show" data-lang="en">Privacy Policy</span>
-      <span class="inline-lang" data-lang="tr">Gizlilik Politikasi</span>
-    </a>
-    <a href="terms-of-use.html">
-      <span class="inline-lang show" data-lang="en">Terms of Use</span>
-      <span class="inline-lang" data-lang="tr">Kullanim Sartlari</span>
-    </a>
-    <a href="support.html">
-      <span class="inline-lang show" data-lang="en">Support</span>
-      <span class="inline-lang" data-lang="tr">Destek</span>
-    </a>
-    <a href="mailto:ingra.app.contact@gmail.com">
-      <span class="inline-lang show" data-lang="en">Contact</span>
-      <span class="inline-lang" data-lang="tr">Iletisim</span>
-    </a>
+    <a href="privacy-policy.html"><span class="il s" data-l="en">Privacy</span><span class="il" data-l="tr">Gizlilik</span></a>
+    <a href="terms-of-use.html"><span class="il s" data-l="en">Terms</span><span class="il" data-l="tr">Sartlar</span></a>
+    <a href="support.html"><span class="il s" data-l="en">Support</span><span class="il" data-l="tr">Destek</span></a>
+    <a href="mailto:ingra.app.contact@gmail.com"><span class="il s" data-l="en">Contact</span><span class="il" data-l="tr">Iletisim</span></a>
   </div>
   <span>Ingra &copy; 2026</span>
 </footer>
 
 <script>
-// Language
-function setLang(lang) {
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    const isInline = el.classList.contains('inline-lang');
-    const isFlex = el.classList.contains('flex-lang');
-    el.classList.toggle('show', el.dataset.lang === lang);
-  });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
-  });
-  document.documentElement.lang = lang;
-  localStorage.setItem('ingra-lang', lang);
-}
-const saved = localStorage.getItem('ingra-lang');
-if (saved) setLang(saved);
+function L(l){document.querySelectorAll('[data-l]').forEach(e=>e.classList.toggle('s',e.dataset.l===l));document.querySelectorAll('.il').forEach(e=>e.classList.toggle('s',e.dataset.l===l));document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.textContent===l.toUpperCase()));document.documentElement.lang=l;localStorage.setItem('ingra-lang',l)}
+const sv=localStorage.getItem('ingra-lang');if(sv)L(sv);
 
 // Scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});
+document.querySelectorAll('.fi').forEach(e=>io.observe(e));
 
-// Waitlist form
-function handleSubmit(e) {
-  e.preventDefault();
-  const form = e.target;
-  fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} })
-    .then(r => {
-      if (r.ok) {
-        form.style.display = 'none';
-        document.getElementById('waitlist-success').style.display = 'block';
-      }
-    })
-    .catch(() => {
-      // Fallback: open email
-      const email = form.querySelector('input[type=email]').value;
-      window.location.href = 'mailto:ingra.app.contact@gmail.com?subject=Android%20Waitlist&body=Please%20notify%20me:%20' + email;
-    });
-  return false;
-}
+// Nav scroll
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50)});
+
+// Waitlist
+function W(e){e.preventDefault();const f=e.target;fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}}).then(r=>{if(r.ok){f.style.display='none';document.getElementById('wl-ok').style.display='block'}}).catch(()=>{const em=f.querySelector('input[type=email]').value;window.location.href='mailto:ingra.app.contact@gmail.com?subject=Android%20Waitlist&body=Notify%20me:%20'+em});return false}
 </script>
 </body>
 </html>
