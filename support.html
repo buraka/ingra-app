@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ingra - Destek</title>
+<title>Ingra - Support / Destek</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0f0a;color:#e0e0e0;line-height:1.7;-webkit-font-smoothing:antialiased}
 .container{max-width:680px;margin:0 auto;padding:40px 24px 60px}
+.lang-switch{display:flex;justify-content:flex-end;margin-bottom:16px;gap:4px}
+.lang-btn{background:#111611;border:1px solid #1a2a1a;color:#888;font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;cursor:pointer;transition:all .2s}
+.lang-btn.active{background:#16A34A20;color:#4ADE80;border-color:#16A34A40}
+.lang-btn:hover{border-color:#4ADE80}
 .badge{display:inline-flex;align-items:center;gap:6px;background:#16A34A20;color:#4ADE80;font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px}
 .badge svg{width:14px;height:14px;fill:#4ADE80}
 h1{font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-0.3px}
@@ -30,11 +34,21 @@ a:hover{text-decoration:underline}
 .faq-item{background:#111611;border:1px solid #1a2a1a;border-radius:12px;padding:16px 18px;margin:10px 0}
 .faq-item .q{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
 .faq-item .a{font-size:14px;color:#999;margin:0}
+[data-lang]{display:none}
+[data-lang].show{display:block}
 </style>
 </head>
 <body>
 <div class="container">
-<div class="badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> Destek</div>
+<div class="lang-switch">
+<button class="lang-btn" onclick="setLang('en')">EN</button>
+<button class="lang-btn active" onclick="setLang('tr')">TR</button>
+</div>
+
+<div class="badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg> <span data-lang="tr" class="show">Destek</span><span data-lang="en">Support</span></div>
+
+<!-- TR -->
+<div data-lang="tr" class="show">
 <h1>Destek Merkezi</h1>
 <p class="subtitle">Size nasil yardimci olabiliriz?</p>
 
@@ -53,7 +67,7 @@ a:hover{text-decoration:underline}
 
 <div class="faq-item">
 <div class="q">Ucretsiz tarama hakkim bitti, ne yapabilirim?</div>
-<div class="a">Her ay belirli sayida ucretsiz tarama hakkiniz yenilenir. Ek tarama icin kisa bir reklam izleyebilir veya sinirsiZ tarama icin Ingra Pro'ya abone olabilirsiniz.</div>
+<div class="a">Her ay belirli sayida ucretsiz tarama hakkiniz yenilenir. Ek tarama icin kisa bir reklam izleyebilir veya sinirsiz tarama icin Ingra Pro'ya abone olabilirsiniz.</div>
 </div>
 
 <div class="faq-item">
@@ -73,7 +87,7 @@ a:hover{text-decoration:underline}
 
 <div class="faq-item">
 <div class="q">Kamera odaklanmiyor veya bulanik cekiyor?</div>
-<div class="a">Kamerayi etikete yaklastirin ve cihazin odaklanmasini bekleyin. Yesil cerceve gorunup "Metin algilandi" yazisi ciktiginda cekim yapabilirsiniz. Karanlik ortamlarda flash simgesine dokunarak fenerı acabilirsiniz.</div>
+<div class="a">Kamerayi etikete yaklastirin ve cihazin odaklanmasini bekleyin. Yesil cerceve gorunup "Metin algilandi" yazisi ciktiginda cekim yapabilirsiniz. Karanlik ortamlarda flash simgesine dokunarak feneri acabilirsiniz.</div>
 </div>
 
 <h2>Hata Bildirimi</h2>
@@ -90,8 +104,83 @@ a:hover{text-decoration:underline}
 <li><strong>Platform:</strong> iOS 17.0+</li>
 <li><strong>Dil destegi:</strong> Turkce, Ingilizce</li>
 </ul>
-
-<div class="footer">Ingra &copy; 2026. Tum haklari saklidir.</div>
 </div>
+
+<!-- EN -->
+<div data-lang="en">
+<h1>Support Center</h1>
+<p class="subtitle">How can we help you?</p>
+
+<div class="contact-card">
+<div class="icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+<a href="mailto:ingra.app.contact@gmail.com" class="email">ingra.app.contact@gmail.com</a>
+<span class="note">We typically respond within 24 hours</span>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq-item">
+<div class="q">How reliable are the analysis results?</div>
+<div class="a">Ingra uses Google Gemini AI to analyze ingredients. Results are provided for informational purposes only and do not replace medical advice. Always consult a healthcare professional for critical decisions regarding allergies or health conditions.</div>
+</div>
+
+<div class="faq-item">
+<div class="q">I've used up my free scans. What can I do?</div>
+<div class="a">Your free scan quota resets each month. You can watch a short ad for an extra scan or subscribe to Ingra Pro for unlimited scanning.</div>
+</div>
+
+<div class="faq-item">
+<div class="q">How do I cancel my Pro subscription?</div>
+<div class="a">Go to iPhone Settings &gt; Apple ID &gt; Subscriptions &gt; Ingra Pro &gt; Cancel Subscription. Cancellation takes effect at the end of the current billing period.</div>
+</div>
+
+<div class="faq-item">
+<div class="q">How can I delete my data?</div>
+<div class="a">Use the Profile &gt; Settings &gt; Delete All Data button within the app to permanently delete all your scan history, comparisons, and profile information.</div>
+</div>
+
+<div class="faq-item">
+<div class="q">Where are my photos stored?</div>
+<div class="a">All photos are stored only on your device. Images sent to Google Gemini API for analysis are not retained after processing.</div>
+</div>
+
+<div class="faq-item">
+<div class="q">The camera won't focus or takes blurry photos?</div>
+<div class="a">Move the camera closer to the label and wait for the device to focus. You can take a photo when the green frame appears with "Text detected" message. In dark environments, tap the flash icon to turn on the flashlight.</div>
+</div>
+
+<h2>Bug Reports</h2>
+<p>If you encounter a bug, please email us with the following information:</p>
+<ul>
+<li>Device model and iOS version</li>
+<li>Steps to reproduce the issue</li>
+<li>Screenshots if available</li>
+</ul>
+
+<h2>App Information</h2>
+<ul>
+<li><strong>Developer:</strong> Burak</li>
+<li><strong>Platform:</strong> iOS 17.0+</li>
+<li><strong>Language support:</strong> Turkish, English</li>
+</ul>
+</div>
+
+<div class="footer">Ingra &copy; 2026. <span data-lang="tr" class="show">Tum haklari saklidir.</span><span data-lang="en">All rights reserved.</span></div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.classList.toggle('show', el.dataset.lang === lang);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+  });
+  document.documentElement.lang = lang === 'en' ? 'en' : 'tr';
+  localStorage.setItem('ingra-lang', lang);
+}
+const saved = localStorage.getItem('ingra-lang');
+if (saved) setLang(saved);
+</script>
 </body>
 </html>
