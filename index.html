@@ -151,8 +151,10 @@ footer .fl a{color:#444;font-size:11px;transition:color .2s}
 footer .fl a:hover{color:var(--g)}
 
 /* ── Animations ── */
-.fi{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.fi{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .fi.v{opacity:1;transform:translateY(0)}
+/* Ensure sections with fi have min-height so observer triggers */
+section.fi,div.fi{min-height:1px}
 
 /* ── i18n ── */
 .en,.tr{display:none}
@@ -403,8 +405,10 @@ if(sv)L(sv);
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>50));
 
 // Scroll fade-in
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')}),{threshold:.1});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')}),{threshold:0,rootMargin:'0px 0px 50px 0px'});
 document.querySelectorAll('.fi').forEach(e=>io.observe(e));
+// Fallback: show all fi after 2s
+setTimeout(()=>document.querySelectorAll('.fi').forEach(e=>e.classList.add('v')),2000);
 
 // Waitlist
 function W(e){
