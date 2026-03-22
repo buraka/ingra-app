@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://buraka.github.io/ingra/sitemap.xml
+Sitemap: https://buraka.github.io/ingra-app/sitemap.xml

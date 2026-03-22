@@ -1,9 +1,9 @@
 1:"$Sreact.fragment"
-2:I[47257,["/ingra/_next/static/chunks/01xlw8hd842-c.js","/ingra/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
-3:I[52683,["/ingra/_next/static/chunks/01xlw8hd842-c.js","/ingra/_next/static/chunks/0d3shmwh5_nmn.js","/ingra/_next/static/chunks/0vmnvoxd3fv3~.js","/ingra/_next/static/chunks/102toobc3udap.js"],"default"]
-6:I[97367,["/ingra/_next/static/chunks/01xlw8hd842-c.js","/ingra/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
+2:I[47257,["/ingra-app/_next/static/chunks/01xlw8hd842-c.js","/ingra-app/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientPageRoot"]
+3:I[52683,["/ingra-app/_next/static/chunks/01xlw8hd842-c.js","/ingra-app/_next/static/chunks/0d3shmwh5_nmn.js","/ingra-app/_next/static/chunks/0s9xrnj5e32br.js","/ingra-app/_next/static/chunks/0hlskb1bwc-rb.js"],"default"]
+6:I[97367,["/ingra-app/_next/static/chunks/01xlw8hd842-c.js","/ingra-app/_next/static/chunks/0d3shmwh5_nmn.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ingra/_next/static/chunks/0vmnvoxd3fv3~.js","async":true}],["$","script","script-1",{"src":"/ingra/_next/static/chunks/102toobc3udap.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"W5iYE9nT_gFthMnMgllKB"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/ingra-app/_next/static/chunks/0s9xrnj5e32br.js","async":true}],["$","script","script-1",{"src":"/ingra-app/_next/static/chunks/0hlskb1bwc-rb.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"CvrhplUUiVgwOp8j-ModA"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
